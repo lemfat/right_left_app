@@ -2,9 +2,17 @@ import { useState } from 'react'
 
 function App() {
   const [arr, setArr] = useState<string[]>([])
+  const [current, setCurrent] = useState<number>(0)
 
   const appendLeft = () => setArr(pre => [...pre, "left"])
   const appendRight = () => setArr(pre => [...pre, "right"])
+
+  const updatePosition = (p: number) => {
+    setCurrent(p)
+  }
+  const deletePanel = (p: number) => {
+    setArr(pre => pre.filter((_, i) => i !== p))
+  }
 
   return (
     <div>
@@ -25,13 +33,28 @@ function App() {
         {arr.map((x, i) => (
           x === "left" ? (
             <div className="w-24 h-12 flex">
-              <div className="w-12 h-12 bg-slate-400 border-gray-100 border"></div>
-              <div className="w-12 h-12"></div>
+              <button
+                className={`w-12 h-12 bg-slate-400 border-gray-100 border ${i === current && "bg-red-400"}`}
+                onClick={() => updatePosition(i)}
+              >
+              </button>
+              <button
+                className={`w-12 h-12`}
+                onClick={() => deletePanel(i)}
+              >
+              </button>
             </div>
           ) : (
             <div className="w-24 h-12 flex">
-              <div className="w-12 h-12"></div>
-              <div className="w-12 h-12 bg-slate-400 border-gray-100 border"></div>
+              <button
+                className={`w-12 h-12`}
+                onClick={() => deletePanel(i)}
+              >
+              </button>
+              <button
+                className={`w-12 h-12 bg-slate-400 border-gray-100 border ${i === current && "bg-red-400"}`}
+                onClick={() => updatePosition(i)}
+              ></button>
             </div>
           )
         ))}
