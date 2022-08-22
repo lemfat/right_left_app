@@ -4,8 +4,14 @@ function App() {
   const [arr, setArr] = useState<string[]>([])
   const [current, setCurrent] = useState<number>(0)
 
-  const appendLeft = () => setArr(pre => [...pre, "left"])
-  const appendRight = () => setArr(pre => [...pre, "right"])
+  const appendLeft = () => {
+    setArr(pre => [...pre, "left"])
+    setCurrent(arr.length)
+  }
+  const appendRight = () => {
+    setArr(pre => [...pre, "right"])
+    setCurrent(arr.length)
+  }
 
   const updatePosition = (p: number) => {
     setCurrent(p)
@@ -34,9 +40,10 @@ function App() {
           x === "left" ? (
             <div className="w-24 h-12 flex">
               <button
-                className={`w-12 h-12 bg-slate-400 border-gray-100 border ${i === current && "bg-red-400"}`}
+                className={`w-12 h-12 text-black font-bold border-gray-100 border ${i === current ? "bg-red-400" : "bg-slate-300"}`}
                 onClick={() => updatePosition(i)}
               >
+                {i}
               </button>
               <button
                 className={`w-12 h-12`}
@@ -52,9 +59,11 @@ function App() {
               >
               </button>
               <button
-                className={`w-12 h-12 bg-slate-400 border-gray-100 border ${i === current && "bg-red-400"}`}
+                className={`w-12 h-12 text-black font-bold border-gray-100 border ${i === current ? "bg-red-400" : "bg-slate-300"}`}
                 onClick={() => updatePosition(i)}
-              ></button>
+              >
+                {i}
+              </button>
             </div>
           )
         ))}
